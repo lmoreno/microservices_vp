@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vp.training.microservices.entities.Car;
 import com.vp.training.microservices.entities.Person;
-import com.vp.training.microservices.services.CarService;
 import com.vp.training.microservices.services.PersonService;
 
 @RestController
@@ -21,9 +20,6 @@ public class PersonController {
 
 	@Autowired
 	PersonService personService;
-
-	@Autowired
-	CarService carService;
 
 	@RequestMapping(value = "/id/{personId}", method = RequestMethod.GET)
 	public Person getPersonById(@PathVariable String personId) {
@@ -52,7 +48,7 @@ public class PersonController {
 
 	@RequestMapping(value = "/cars", method = RequestMethod.GET)
 	public List<Car> getPersonCars(@RequestParam String personId) {
-		return carService.getCarsByPersonId(personId);
+		return personService.getCarsByPersonId(personId);
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)

@@ -1,7 +1,5 @@
 package com.vp.training.microservices.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +20,6 @@ public class CarServiceImpl implements CarService{
 	@Override
 	public Car getCarById(String carId) {
 		return carRepo.findOne(carId);
-	}
-
-	@Override
-	public List<Car> getCarsByPersonId(String personId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
