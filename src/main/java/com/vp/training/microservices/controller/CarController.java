@@ -1,5 +1,7 @@
 package com.vp.training.microservices.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +27,13 @@ public class CarController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public Car getCarById(@RequestParam String carId, @RequestParam String personId) {
+	public Car getCarById(@RequestParam String carId) {
 		return carService.getCarById(carId);
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public List<Car> getCarsByPersonId(@RequestParam String personId) {
+		return carService.getCarsByPersonId(personId);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
