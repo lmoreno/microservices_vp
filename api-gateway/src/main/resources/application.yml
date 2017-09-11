@@ -16,10 +16,12 @@ endpoints:
 zuul:
   ignoredServices: "*"
   routes:
-    personas-server:
-      path: /personas/**
-    carros-server:
-      path: /carros/**
+    persons-server:
+      path: /person/**
+    cars-server:
+      path: /car/**
+    mailing-server:
+      path: /mail/**
 
 server:
   port: 8765
