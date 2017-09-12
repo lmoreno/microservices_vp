@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +27,8 @@ public class CarController {
 		return carService.addCar(car);
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public Car getCarById(@RequestParam String carId) {
+	@RequestMapping(value = "/{carId}", method = RequestMethod.GET)
+	public Car getCarById(@PathVariable String carId) {
 		return carService.getCarById(carId);
 	}
 
@@ -36,7 +37,7 @@ public class CarController {
 		return carService.getCarsByPersonId(personId);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void deleteCar(@RequestParam String id) {
 		carService.deleteCar(id);

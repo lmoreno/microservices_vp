@@ -41,7 +41,7 @@ public class PersonController {
 		return personService.addPerson(person);
 	}
 
-	@RequestMapping(value = "/delete}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void deletePerson(@RequestParam String personId) {
 		personService.deletePerson(personId);
 	}
