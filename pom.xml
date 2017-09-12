@@ -11,8 +11,6 @@
 	<name>Microservices</name>
 
 	<modules>
-		<module>api-gateway</module>
-		<module>discovery-server</module>
 		<module>persons</module>
 		<module>cars</module>
 		<module>mailing</module>

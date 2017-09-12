@@ -40,10 +40,17 @@ public class PersonController {
 		return personService.addPerson(person);
 	}
 
-	@RequestMapping(value = "/delete}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void deletePerson(@RequestParam String personId) {
 		personService.deletePerson(personId);
 	}
+	
+	/* TODO move this part
+	@RequestMapping(value = "/cars", method = RequestMethod.GET)
+	public List<Car> getPersonCars(@RequestParam String personId) {
+		return personService.getCarsByPersonId(personId);
+	}
+	*/
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void updatePerson(@RequestBody Person person) {

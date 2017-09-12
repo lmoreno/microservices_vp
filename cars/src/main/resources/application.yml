@@ -3,7 +3,7 @@ spring:
     name: carros-server
 
 server:
-  port: 0
+  port: 9014
 
 eureka:
   instance:
