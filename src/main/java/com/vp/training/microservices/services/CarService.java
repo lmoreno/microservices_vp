@@ -16,4 +16,6 @@ public interface CarService {
 
 	public List<Car> getCarsByPersonId(String personId);
 
+	public List<Car> getAllCars();
+
 }

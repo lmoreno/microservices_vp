@@ -3,49 +3,47 @@ package com.vp.training.microservices.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vp.training.microservices.entities.Car;
 import com.vp.training.microservices.services.CarService;
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/cars")
 public class CarController {
 
 	@Autowired
 	CarService carService;
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public Car addCar(@RequestBody Car car) {
-		return carService.addCar(car);
+	@GetMapping
+	public List<Car> getCars() {
+		return carService.getAllCars();
 	}
 
-	@RequestMapping(value = "/{carId}", method = RequestMethod.GET)
+	@GetMapping("/{carId}")
 	public Car getCarById(@PathVariable String carId) {
 		return carService.getCarById(carId);
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<Car> getCarsByPersonId(@RequestParam String personId) {
-		return carService.getCarsByPersonId(personId);
+	@PostMapping
+	public Car addCar(@RequestBody Car car) {
+		return carService.addCar(car);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deleteCar(@RequestParam String id) {
-		carService.deleteCar(id);
+	@DeleteMapping("/{carId}")
+	public void deleteCar(@PathVariable String carId) {
+		carService.deleteCar(carId);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void updateCar(@RequestBody Car car) {
+	@PutMapping("/{carId}")
+	public void updateCar(@PathVariable String carId, @RequestBody Car car) {
 		carService.updateCar(car);
 	}
 }

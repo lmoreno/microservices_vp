@@ -24,10 +24,11 @@ public class App {
 	public CommandLineRunner demo(PersonRepository personRepo, CarRepository carRepo) {
 		return (args) -> {
 			
-			Car newCar = new Car("ASD123", "Black", 2009);
 			List<Car> cars = new ArrayList<>();
-			cars.add(newCar);
+			cars.add(new Car("ASD123", "Black", 2009));
+			cars.add(new Car("BMX456", "White", 1899));
 			carRepo.save(cars);
+			carRepo.save(new Car("HJK987", "Red", 2025));
 			
 			personRepo.save(new Person("1", "Pepe Perez", "pepe@unexistant.com", 10, cars));
 			personRepo.save(new Person("2", "Juan Perigoyas", "juan@unexistant.com", 10, new ArrayList<>()));

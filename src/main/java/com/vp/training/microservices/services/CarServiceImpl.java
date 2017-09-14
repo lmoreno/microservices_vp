@@ -42,4 +42,9 @@ public class CarServiceImpl implements CarService{
 	public List<Car> getCarsByPersonId(String personId) {
 		return personRepo.findOne(personId).getCars();
 	}
+
+	@Override
+	public List<Car> getAllCars() {
+		return (List<Car>) carRepo.findAll();
+	}
 }

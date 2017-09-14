@@ -2,57 +2,68 @@ package com.vp.training.microservices.controller;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vp.training.microservices.entities.Car;
 import com.vp.training.microservices.entities.Person;
+import com.vp.training.microservices.services.CarService;
 import com.vp.training.microservices.services.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/people")
 public class PersonController {
 
 	@Autowired
 	PersonService personService;
+	
+	@Autowired
+	CarService carService;
 
-	@RequestMapping(value = "/id/{personId}", method = RequestMethod.GET)
+	@GetMapping
+	public List<Person> getPeople(@RequestParam(required = false) Integer age) {
+		if(age == null)
+			return personService.getAllPersons();
+		else
+			return personService.getPersonsByAge(age);
+	}
+	
+	@GetMapping("/{personId}")
 	public Person getPersonById(@PathVariable String personId) {
 		return personService.getPersonById(personId);
 	}
-
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Person> getAllPersons() {
-		return personService.getAllPersons();
+	
+	@GetMapping("/{personId}/cars")
+	public List<Car> getCarsByPersonId(@PathVariable String personId) {
+		return carService.getCarsByPersonId(personId);
 	}
 
-	@RequestMapping(value = "/age", method = RequestMethod.GET)
-	public List<Person> getPersonsByAge(@RequestParam Integer age) {
-		return personService.getPersonsByAge(age);
-	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public Person addPerson(Person person) {
+	@PostMapping
+	@ResponseStatus(CREATED)
+	public Person addPerson(@RequestBody Person person) {
 		return personService.addPerson(person);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void deletePerson(@RequestParam String personId) {
-		personService.deletePerson(personId);
+	@PutMapping("/{personId}")
+	public Person updatePerson(@PathVariable String personId, @RequestBody Person person) {
+		person.setId(personId);
+		personService.updatePerson(person);
+		return person;
 	}
 
-	@RequestMapping(value = "/cars", method = RequestMethod.GET)
-	public List<Car> getPersonCars(@RequestParam String personId) {
-		return personService.getCarsByPersonId(personId);
-	}
-	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void updatePerson(@RequestBody Person person) {
-		personService.updatePerson(person);
+	@DeleteMapping("/{personId}")
+	public void deletePerson(@PathVariable String personId) {
+		personService.deletePerson(personId);
 	}
 }
